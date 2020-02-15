@@ -22,7 +22,8 @@
  */
 
 const response1 = `
-    Write youre response here.
+    A Promise is JavaScript object representing the eventual completion or eventual failure of an asynchronous operation and its resulting value. There are three states, Pending, Fulfilled, and Rejected. A Promise return a object with a pending state first, which transition into one of the two other states if the request was successfull or rejected. 
+    
  `;
 
 /**
@@ -50,7 +51,16 @@ const response1 = `
  * response object.
  */
 
-const logUsers = null; //Replace null with your solution code to exercise 2
+const logUsers = ()=> {
+  const getUsers = fetch("https://randomuser.me/api/?results=500")
+  getUsers.then((response) =>{
+    return response.json();
+  }).then((data)=>{
+    console.log('Here are the users:', data.results)
+  });
+  
+}; 
+// logUsers();
 
 /**
  * Exercise 3:
@@ -61,7 +71,22 @@ const logUsers = null; //Replace null with your solution code to exercise 2
  * 2. number each of the names from 1-10.
  */
 
-const listTenNames = null; //Replace null with your solution code to exercise 3
+const listTenNames = () =>{
+  const getNames = fetch("https://randomuser.me/api/?results=10")
+  getNames.then((res)=>{
+    return res.json();
+  }).then((data)=>{
+    console.log(data);
+     data.results.forEach((users,index)=>{
+      console.log(`Here is ${index + 1}, ${users.name.first}`);
+      });
+  });
+  
+};
+// listTenNames();
+
+
+
 
 /**
  * Exercise 4:
@@ -73,9 +98,26 @@ const listTenNames = null; //Replace null with your solution code to exercise 3
  * 3. *optional*: also print the names and phone numbers to the console.
  *
  */
+const div = document.getElementById("main")
 
-const createPhoneBook = null; //Replace null with your solution code to exercise 4
+const createPhoneBook = () => {
+  const phoneBook = fetch("https://randomuser.me/api/?results=25")
+  phoneBook.then((res)=>{
+    return res.json();
+  }).then((data)=>{
+    console.log(data);
+    
+    const phoneNumbers = data.results.map((users) =>`<li>${users.name.first}: ${users.phone}</li>`).join('\n');
+    
+    console.log(phoneNumbers);
+    div.innerHTML = `
+      <h2>Users Phone Number</h2>
+      <ul>${phoneNumbers}</ul>
+  `
+  });
 
+}
+createPhoneBook();
 /**
  * Exercise 5:
  *
